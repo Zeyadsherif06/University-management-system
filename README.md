@@ -142,6 +142,4 @@ gcc student.c course.c cleanup.c stats.c sort.c main.c -o system
 * Statistical tools for grade analysis.
 * Safe memory management with cleanup utilities.
 
----
 
-Do you want me to also add **UML-style diagrams** (like system structure and function relations) in the README so it looks even more professional for GitHub?
