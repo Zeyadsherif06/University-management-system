@@ -20,7 +20,7 @@ The system is organized into separate source files for clarity and maintainabili
   Adds a new student to the system.
 
 * `Student* check_student(System* heads, int ID);`
-  Searches for a student by ID.
+  Check if the student already exist.
 
 * `void traverse_students(System* heads);`
   Iterates through and displays all students.
@@ -48,7 +48,7 @@ The system is organized into separate source files for clarity and maintainabili
   Creates and registers a new course.
 
 * `Course* check_course(System* heads, int course_code);`
-  Searches for a course by code.
+  Check if the course already exist.
 
 * `void traverse_courses(System* heads);`
   Iterates through and displays all courses.
@@ -142,6 +142,4 @@ gcc student.c course.c cleanup.c stats.c sort.c main.c -o system
 * Statistical tools for grade analysis.
 * Safe memory management with cleanup utilities.
 
----
 
-Do you want me to also add **UML-style diagrams** (like system structure and function relations) in the README so it looks even more professional for GitHub?
