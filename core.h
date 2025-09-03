@@ -59,7 +59,7 @@ double get_grade_simple(const Student* ptr_student, char* coursename);
 
 void add_student_to_list(System* heads, Student* new_student);
 
-void get_grade_student(int ID, System* heads);
+int get_grade_student(int ID, System* heads);
 
 // course.c functions declarations
 Course* create_course(int code, char* coursename, System* heads);

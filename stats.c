@@ -4,9 +4,14 @@
 double calculate_average(System* heads, int course_code) {
     Course* ptr_course = check_course(heads, course_code);
     if(ptr_course == NULL) {
-        exit(EXIT_FAILURE);
+        printf("the course with the following code: %d doesn't exist\n", course_code);
+        return -1.0;
     }
     int enrollments = ptr_course->enrollment_count;
+    if(enrollments == 0) {
+        printf("There are no students with grades in this course\n");
+        return -1.0;
+    }
     double total_grades = 0.0;
     for(int i = 0; i < enrollments; i++) {
         Student* ptr_student = ptr_course->students_list[i];
@@ -28,10 +33,15 @@ double calculate_average(System* heads, int course_code) {
 double calculate_median(System* heads, int course_code) {
     Course* ptr_course = check_course(heads, course_code);
     if(ptr_course == NULL) {
-        exit(EXIT_FAILURE);
+        printf("the course with the following code: %d doesn't exist\n", course_code);
+        return -1.0;
     }
     sort_students_by_grade(heads, course_code);
     int enrollments = ptr_course->enrollment_count;
+    if(enrollments == 0) {
+        printf("There are no students with grades in this course\n");
+        return -1.0;
+    }
     double total = 0.0;
     if(enrollments % 2 == 0){
         int half = enrollments / 2;

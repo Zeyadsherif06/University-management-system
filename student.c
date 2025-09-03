@@ -2,6 +2,12 @@
 
 // add students to the university system
 Student* admit_student(int id, char* name, System* heads) {
+    while(heads->head_student != NULL) {
+        if(heads->head_student->id == id) {
+            printf("a student with the same ID already exist please try again with a different ID\n");
+            return NULL;
+        }
+    }
     Student* ptr_student = (Student*)malloc(sizeof(Student));
     if(ptr_student == NULL) {
         fprintf(stderr, "Failed memory allocation\n");
@@ -38,6 +44,7 @@ Student* check_student(System* heads, int ID) {
     Student* head = heads->head_student;
     while(head != NULL){
         if(head->id == ID ) {
+            printf("The student exist on the list\n");
             return head;
         }
         head = head->next; 
@@ -49,6 +56,10 @@ Student* check_student(System* heads, int ID) {
 // print the students and their IDs
 void traverse_students(System* heads) {
     Student* head = heads->head_student;
+    if (head == NULL) {
+        printf("Please add students there are no students yet\n");
+        return;
+    }
     while(head != NULL){
         printf("The student with the following name: %s has the ID: %d.\n",head->name , head->id);
         head = head->next;
@@ -58,8 +69,8 @@ void traverse_students(System* heads) {
 // add a grade to a student
 int add_grade(int ID, int course_code, double grade, System* heads) {
     if(grade > 100 || grade < 0) {
-        printf("Please enter grade between 0 and 100\n");
-        exit(EXIT_FAILURE);
+        printf("Please enter grade between 0 and 100 and try again\n");
+        return -1;
     }
     Student* ptr_student = check_student(heads, ID);
     Course* ptr_course = check_course(heads, course_code);
@@ -98,19 +109,26 @@ double get_grade(int ID, int course_code, System* heads) {
             }
         }
     }
-    printf("Grade not found\n");
+    printf("Grade not found, please add a grade and try again\n");
     return -1.0;
 }
 
 // get all the grade of a specific student
-void get_grade_student(int ID, System* heads) {
+int get_grade_student(int ID, System* heads) {
     Student* ptr_student = check_student(heads, ID);
     if(ptr_student != NULL) {
         int courses = ptr_student->num_of_courses;
+        if(courses == 0) {
+            printf("The student doesn't have any grades\n");
+            return -1;
+        }
         for(int i = 0; i < courses; i++) {
             printf("the grade of the student: %s in the course: %s is %.2lf\n", ptr_student->name, ptr_student->student_grades[i].course_name, ptr_student->student_grades[i].grade);
         }
+        return 1;
     }
+    printf("The student doesn't exist");
+    return -1;
 }
 
 // a simple version of the previous function to be used in other functions

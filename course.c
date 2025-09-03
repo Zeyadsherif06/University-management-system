@@ -2,6 +2,12 @@
 
 // create a new course on the system
 Course* create_course(int code, char* coursename, System* heads) {
+    while(heads->head_course != NULL) {
+        if(heads->head_course->course_code == code) {
+            printf("a course with the same code already exist please try again with a different code\n");
+            return NULL;
+        }
+    }
    Course* ptr_course = (Course*)malloc(sizeof(Course));
    if(ptr_course == NULL) {
     fprintf(stderr, "failed memory allocation for the new course\n");
@@ -38,6 +44,7 @@ Course* check_course(System* heads, int course_code) {
     Course* head = heads->head_course;
     while(head != NULL){
         if(head->course_code == course_code) {
+            printf("The course exist on the list\n");
             return head;
         }
         head = head->next;
@@ -49,6 +56,10 @@ Course* check_course(System* heads, int course_code) {
 // print the list of courses
 void traverse_courses(System* heads) {
     Course* head = heads->head_course;
+    if (head == NULL) {
+        printf("Please add courses there are no courses yet\n");
+        return;
+    }
     while(head != NULL){
         printf("Course name: %s - Course code: %d\n",head->course_name, head->course_code);
         head = head->next;
@@ -65,7 +76,7 @@ int enroll_student(int course_code, int student_ID, System* heads) {
     for(int i = 0; i < num_courses; i++) {
         if(strcmp(ptr_student->student_grades[i].course_name, ptr_course->course_name) == 0) {
             printf("Student already enrolled in this course");
-            exit(EXIT_FAILURE);
+            return -1;
         }
     }
     if(ptr_student != NULL && ptr_course != NULL){
@@ -91,9 +102,14 @@ int enroll_student(int course_code, int student_ID, System* heads) {
 void Print_students_grades(System* heads, int course_code) {
     Course* ptr_course = check_course(heads, course_code);
     if(ptr_course == NULL){
-        exit(EXIT_FAILURE);
+        printf("the course with the following code: %d doesn't exist\n", course_code);
+        return;
     }
     int enrollments = ptr_course->enrollment_count;
+    if(enrollments == 0) {
+        printf("There are no students with grades in this course\n");
+        return;
+    }
     for(int i = 0; i < enrollments; i++) {
         Student* ptr_student = ptr_course->students_list[i];
         int student_courses = ptr_student->num_of_courses;

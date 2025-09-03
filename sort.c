@@ -11,7 +11,8 @@ static sort_helper s_help;
 void sort_students_by_grade(System* heads, int course_code) {
     Course* ptr_course = check_course(heads, course_code);
     if(ptr_course == NULL) {
-        exit(EXIT_FAILURE);
+        printf("the course with the following code: %d doesn't exist\n", course_code);
+        return;
     }
     s_help.coursename = ptr_course->course_name;
     qsort(ptr_course->students_list, (size_t) ptr_course->enrollment_count, sizeof(Student*), compare_by_grade);
