@@ -23,6 +23,7 @@ typedef struct course {
     int course_code;
     char* course_name;
     int enrollment_count;
+    int num_of_enrolled_and_grades;
     Student** students_list;
     Course* next;
     double (*statistics)(System* heads, int course_code);
@@ -40,6 +41,7 @@ typedef struct student {
     char* name;
     Student* next;
     Grade* student_grades;
+    int num_of_grades;
     int num_of_courses;
 }Student;
 

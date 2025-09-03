@@ -3,7 +3,7 @@
 
 void display() {
     printf("---Welcome to the university management system---\n");
-    printf("A- Admit student\n");
+    printf("A- Admits student\n");
     printf("B- Create a new course\n");
     printf("C- Enroll a student to a course\n");
     printf("D- Add a new Grade to an existing student\n");
@@ -13,7 +13,7 @@ void display() {
     printf("H- Display all the courses in the university\n");
     printf("I- Get a specific grade of a student\n");
     printf("J- Get all the grades of a student\n");
-    printf("K- Get the grades of all the enrolled students in aspeecific course\n");
+    printf("K- Get the grades of all the enrolled students in a specific course\n");
     printf("L- Compute the mean and the median of the grades in a specific course\n");
     printf("M- Sort the students by grade in a course\n");
     printf("Q- Exit and Quit the program\n");
