@@ -3,7 +3,7 @@
 
 void display() {
     printf("---Welcome to the university management system---\n");
-    printf("A- Admits student\n");
+    printf("A- Admit student\n");
     printf("B- Create a new course\n");
     printf("C- Enroll a student to a course\n");
     printf("D- Add a new Grade to an existing student\n");
@@ -126,6 +126,10 @@ int main() {
                 sort_students_by_grade(ptr_heads, course_code);
                 Print_students_grades(ptr_heads, course_code);
         }
+        else {
+            printf("Invalid option. Please enter a valid option and try again.\n");
+        }
+
 
     }
     while (choice != 'Q');
