@@ -30,16 +30,19 @@ void cleanup_all_courses(Course* head) {
 
 void cleanup_student(Student* student) {
     free(student->name);
-    int size = student->num_of_courses;
+    student->name = NULL;
+    int size = student->num_of_grades;
     for(int i = 0; i < size; i++) {
         free(student->student_grades[i].course_name);
+        student->student_grades[i].course_name = NULL;
     }
     free(student->student_grades);
-
+    student->student_grades = NULL;
 }
 
 void cleanup_course(Course* course) {
     free(course->course_name);
+    course->course_name = NULL;
     free(course->students_list);
-
+    course->students_list = NULL;
 }

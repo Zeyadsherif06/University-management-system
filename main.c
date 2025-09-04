@@ -43,6 +43,7 @@ int main() {
     {
         display();
         scanf(" %c", &choice);
+        clear_input_buffer();
         choice = toupper(choice);
 
         if (choice == 'A') {

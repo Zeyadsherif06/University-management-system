@@ -2,23 +2,35 @@
 
 // create a new course on the system
 Course* create_course(int code, char* coursename, System* heads) {
+    if(coursename == NULL || strlen(coursename) == 0 || strspn(coursename, " ") == strlen(coursename)) {
+        printf("You entered an invalid course name, please enter a valid name and try again.\n");
+        return NULL;
+    }
+    if (strlen(coursename) > 99) {
+    printf("Course name too long. Please enter a shorter name.\n");
+    return NULL;
+    }
+    if (code <= 0) {
+        printf("You entered an invalid course code, please enter a positive non-zero code and try again.\n");
+        return NULL;
+    }
     Course* current = heads->head_course;
     while(current != NULL) {
         if(current->course_code == code) {
-            printf("a course with the same code already exist please try again with a different code\n");
+            printf("a course with the same code already exist please try again with a different code.\n");
             return NULL;
         }
         current = current->next;
     }
    Course* ptr_course = (Course*)malloc(sizeof(Course));
    if(ptr_course == NULL) {
-    fprintf(stderr, "failed memory allocation for the new course\n");
+    fprintf(stderr, "failed memory allocation for the new course.\n");
     exit(EXIT_FAILURE);
    } 
    ptr_course->course_code = code;
    ptr_course->course_name = strdup(coursename);
     if(ptr_course->course_name == NULL) {
-        fprintf(stderr, "failed memory allocation for the course name\n");
+        fprintf(stderr, "failed memory allocation for the course name.\n");
         exit(EXIT_FAILURE);
    } 
    ptr_course->enrollment_count = 0;
@@ -26,7 +38,7 @@ Course* create_course(int code, char* coursename, System* heads) {
    ptr_course->next = NULL;
    ptr_course->students_list = NULL; 
    add_course_to_list(heads, ptr_course);
-   printf("The course: %s was created successfully\n", coursename);
+   printf("The course: %s was created successfully.\n", coursename);
    return ptr_course;
 }
 
@@ -48,12 +60,12 @@ Course* check_course(System* heads, int course_code) {
     Course* head = heads->head_course;
     while(head != NULL){
         if(head->course_code == course_code) {
-            printf("The course exist on the list\n");
+            printf("The course exist on the list.\n");
             return head;
         }
         head = head->next;
     }
-    printf("the course with the following code: %d doesn't exist\n", course_code);
+    printf("the course with the following code: %d doesn't exist.\n", course_code);
     return NULL;
 }
 
@@ -61,11 +73,11 @@ Course* check_course(System* heads, int course_code) {
 void traverse_courses(System* heads) {
     Course* head = heads->head_course;
     if (head == NULL) {
-        printf("Please add courses there are no courses yet\n");
+        printf("Please add courses there are no courses yet.\n");
         return;
     }
     while(head != NULL){
-        printf("Course name: %s - Course code: %d\n",head->course_name, head->course_code);
+        printf("Course name: %s - Course code: %d.\n",head->course_name, head->course_code);
         head = head->next;
     }
 }
@@ -77,7 +89,7 @@ int enroll_student(int course_code, int student_ID, System* heads) {
     Course* course_head = heads->head_course;
     Course* ptr_course = check_course(heads, course_code);
     if(ptr_course == NULL || ptr_student == NULL) {
-         printf("Failled enrollment either course or student or both doesn't exist\n"); 
+         printf("Failled enrollment either course or student or both doesn't exist.\n"); 
         return 0;
     }
     int num_of_students = ptr_course->enrollment_count;
@@ -113,7 +125,7 @@ void Print_students_grades(System* heads, int course_code) {
     }
     int num_of_enrollments_and_grades = ptr_course->num_of_enrolled_and_grades;
     if(num_of_enrollments_and_grades == 0) {
-        printf("There are no students with grades in this course\n");
+        printf("There are no students with grades in this course.\n");
         return;
     }
     for(int i = 0; i < ptr_course->enrollment_count; i++) {
@@ -122,7 +134,7 @@ void Print_students_grades(System* heads, int course_code) {
         for(int j = 0; j < student_grades; j++) {
             if(strcmp(ptr_student->student_grades[j].course_name, ptr_course->course_name) == 0) {
                 double student_grade = ptr_student->student_grades[j].grade;
-                printf("the grade of the student: %s in the course: %s is %.2lf\n", ptr_student->name, ptr_course->course_name, ptr_student->student_grades[j].grade);
+                printf("the grade of the student: %s in the course: %s is %.2lf.\n", ptr_student->name, ptr_course->course_name, ptr_student->student_grades[j].grade);
                 break;
             }
         }
